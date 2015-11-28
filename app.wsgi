@@ -22,8 +22,8 @@ def rag():
     data = spreadsheet.get_worksheet(0).get_all_values()
     rag = random.randint(1, len(data) - 1)
     
-    for x in data[rag]:
-    	x.replace('\n', '<br>')
+    for i, x in enumerate(data[rag]):
+    	data[rag][i] = x.replace('\n', '<br>')
     
     #return '<br>'.join(data[rag])
     return data[rag]
