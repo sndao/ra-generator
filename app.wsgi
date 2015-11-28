@@ -20,7 +20,11 @@ def rag():
     spreadsheet = client.open("DSA Problems")
 
     data = spreadsheet.get_worksheet(0).get_all_values()
+    
     rag = random.randint(1, len(data) - 1)
+
+    while len(data[rag][4]) > 0:
+        rag = random.randint(1, len(data) - 1)
     
     for i, x in enumerate(data[rag]):
     	data[rag][i] = x.replace('\n', '<br>')
@@ -42,8 +46,8 @@ def index():
     source = algo[6]
     problem_no = algo[7]
 
-    if len(completed) > 0:
-    	completed = '[Completed]'
+    if len(context) > 0:
+        context = "<b>Context:</b> " + context
 
     if 'http' in source:
     	source = '<a target="_blank" href="{0}">{0}</a>'.format(source)
@@ -54,9 +58,9 @@ def index():
     <h1>{0} <i>{6}</i></h1>
    	<b>Problem #{5}:</b>
    	<br>{1}<br><br>
-   	Context: {2}<br><br>
-   	Source: {3} {4}<br><br>
-   	<a href=\"/\"><h1>Give me a new problem!</h1></a>
+   	{2}<br><br>
+   	<b>Source:</b> {3} {4}<br><br><br><br>
+   	<a href=\"/\"><h1><center>NEXT PROBLEM</h1></a>
     """.format(task, desc, context, source, algo[7], algo_id,completed)
 
     return algorithm
@@ -64,10 +68,6 @@ def index():
 @error(500) 
 def custom500(error):
     return '<meta http-equiv="refresh" content="0; url=/" />'
-    #return '<a href=\"/\"><h1>Give me a new problem!</h1></a>'
-
-
-
 
 
 application = bottle.default_app()
