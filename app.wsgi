@@ -6,12 +6,7 @@ import random
 from bottle import error
 
 def rag():
-
-    username = "hearthdao"
-    password = "vdighzomctdbiodg"
-    docid = "1vG1UbY0414FS1ytxBBusk4Il8Md4CIq877buicuF5Xo"
-
-    json_key = json.load(open('/home/stevendao/webapps/ragbottle/stevennguyendao-129d370e8efa.json'))
+    
     scope = ['https://spreadsheets.google.com/feeds']
 
     credentials = SignedJwtAssertionCredentials(json_key['client_email'], json_key['private_key'], scope)
